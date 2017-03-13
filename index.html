@@ -164,54 +164,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#160; &#160; &#160; &#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。<br>&#160; &#160; &#160; &#160;首先先看下控制台输出的异常：</p>
-<pre><code>Exception in thread &quot;main&quot; org.hibernate.exception.GenericJDBCException: could not insert: [demo01.Employee]
-at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
-at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
-at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
-at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:64)
-at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:2327)
-at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:2834)
-at org.hibernate.action.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:71)
-at org.hibernate.engine.ActionQueue.execute(ActionQueue.java:273)
-at org.hibernate.event.def.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:320)
-at org.hibernate.event.def.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:203)
-at org.hibernate.event.def.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:129)
-at org.hibernate.event.def.DefaultSaveOrUpdateEventListener.saveWithGeneratedOrRequestedId(DefaultSaveOrUpdateEventListener.java:210)
-at org.hibernate.event.def.DefaultSaveEventListener.saveWithGeneratedOrRequestedId(DefaultSaveEventListener.java:56)
-at org.hibernate.event.def.DefaultSaveOrUpdateEventListener.entityIsTransient(DefaultSaveOrUpdateEventListener.java:195)
-at org.hibernate.event.def.DefaultSaveEventListener.performSaveOrUpdate(DefaultSaveEventListener.java:50)
-at org.hibernate.event.def.DefaultSaveOrUpdateEventListener.onSaveOrUpdate(DefaultSaveOrUpdateEventListener.java:93)
-at org.hibernate.impl.SessionImpl.fireSave(SessionImpl.java:713)
-at org.hibernate.impl.SessionImpl.save(SessionImpl.java:701)
-at org.hibernate.impl.SessionImpl.save(SessionImpl.java:697)
-at demo01.App.testHello(App.java:25)
-at demo01.App.main(App.java:13)
-Caused by: java.sql.SQLException: Field &apos;id&apos; doesn&apos;t have a default value
-at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:998)
-at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3847)
-at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3783)
-at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2447)
-at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2594)
-at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545)
-at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1901)
-at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2113)
-at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2049)
-at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2034)
-at org.hibernate.id.IdentityGenerator$GetGeneratedKeysDelegate.executeAndExtract(IdentityGenerator.java:94)
-at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:57)
-... 17 more
-</code></pre><p>一大堆异常，有用的信息没有几行，我们首先注意到第一行异常：</p>
-<pre><code>Exception in thread &quot;main&quot; org.hibernate.exception.GenericJDBCException: could not insert: [demo01.Employee]
-</code></pre><p>然后还有第23行：</p>
-<pre><code>Caused by: java.sql.SQLException: Field &apos;id&apos; doesn&apos;t have a default value
-</code></pre><p>首先，我去查了，然后保证了配置文件和映射文件完全正确，数据库里面的相关表也已经建好了，但是它报出了插入异常和SQLException，很多原因会导致插入异常，像没有建数据库、数据库某些字段用了关键字、配置文件里数据库名字写错等等，都会导致插入异常。但是“Field ‘id’ doesn’t have a default value”，这样错误就很好锁定了，一半来说id是主键，我们建表的时候往往会忘记勾选主键自增，如果没有选中次项，可能会导致id为空，id为空时当然会报异常。一查看我的数据库，果然，id（主键）没有勾选自增选项，把自增选项选上后再运行项目，正常运行。<br>&#160; &#160; &#160; &#160;我在网上又查了下，发现遇到这种问题没有找到原因的大有人在。网上针对此类问题还有另几种解决方案，我没有去验证，但将方案记在这里：</p>
-<blockquote>
-<p>1、打开my.ini，查找sql-mode=”STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION”<br>修改为sql-mode=”NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION”<br>然后重启MYSQL</p>
-<p>2、 MySQL 5 uses a strict mode which needs to be disabled.<br>In Windows, Goto Start–&gt;Programs–&gt;MySQL-&gt;MySQL Instance Config Wizard. Follow through the Reconfigure Instance option–&gt;Detailed Configuration–&gt;Continue Next a few screens. At the bottom under Enable TCP/IP option there is ‘Enable Strict Mode’. Deslect this option (no tick). Save changes and MySQL will restart.</p>
-</blockquote>
-<p>&#160; &#160; &#160; &#160;另外，如果环境已经搭建好了，但是执行插入或删除任务时，程序测试通过，控制台也正常打印SQL语句，但是数据库数据没有影响，这一半是事务忘记提交。<br>（完）</p>
-
+        <p>&#160; &#160; &#160; &#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。<br>
+        
+          <a class="article-more-a" href="/2017/03/14/搭建Hibernate框架时遇到的一些问题/#more">more >></a>
+        
       
 
       

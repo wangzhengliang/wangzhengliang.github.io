@@ -8,19 +8,16 @@
   <link rel="dns-prefetch" href="http://wangzhengliang.github.io">
   <title>搭建Hibernate框架时遇到的一些问题 | 汪小良的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。&amp;#160; &amp;#160; &amp;#160; &amp;#160;首先先看下控制台输出的异常：
-Exception in t">
+  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建Hibernate框架时遇到的一些问题">
 <meta property="og:url" content="http://wangzhengliang.github.io/2017/03/14/搭建Hibernate框架时遇到的一些问题/index.html">
 <meta property="og:site_name" content="汪小良的个人博客">
-<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。&amp;#160; &amp;#160; &amp;#160; &amp;#160;首先先看下控制台输出的异常：
-Exception in t">
-<meta property="og:updated_time" content="2017-03-13T17:02:50.791Z">
+<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。">
+<meta property="og:updated_time" content="2017-03-13T17:22:22.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建Hibernate框架时遇到的一些问题">
-<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。&amp;#160; &amp;#160; &amp;#160; &amp;#160;首先先看下控制台输出的异常：
-Exception in t">
+<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。">
   
     <link rel="alternative" href="/atom.xml" title="汪小良的个人博客" type="application/atom+xml">
   
@@ -166,7 +163,7 @@ Exception in t">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#160; &#160; &#160; &#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。<br>&#160; &#160; &#160; &#160;首先先看下控制台输出的异常：</p>
+        <p>&#160; &#160; &#160; &#160;初学Hibernate框架，搭建环境时发现各种各样的问题，让人头大，但问题又不得不解决，只得到处寻找解决方案，为防止以后遇到同样的问题，也为了后面有缘看到我博客的遇到和我一样问题的初学者能够方便的解决，特地把我解决问题的方法记录下来。<br><a id="more"></a><br>&#160; &#160; &#160; &#160;首先先看下控制台输出的异常：</p>
 <pre><code>Exception in thread &quot;main&quot; org.hibernate.exception.GenericJDBCException: could not insert: [demo01.Employee]
 at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:140)
 at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:128)
