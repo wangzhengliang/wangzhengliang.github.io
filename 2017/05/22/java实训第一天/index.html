@@ -6,17 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://wangzhengliang.github.io">
-  <title>Tag: 个人感想，杂记 | 汪小良的个人博客</title>
+  <title>java实训第一天 | 汪小良的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="汪正良">
-<meta property="og:type" content="website">
-<meta property="og:title" content="汪小良的个人博客">
-<meta property="og:url" content="http://wangzhengliang.github.io/tags/个人感想，杂记/index.html">
+  <meta name="description" content="JVM内存分析HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+       String s ;
+       s = &amp;quot;HelloHorld!&amp;quot;;
+       System.out.println(&amp;quot;s = &amp;quot; + s);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java实训第一天">
+<meta property="og:url" content="http://wangzhengliang.github.io/2017/05/22/java实训第一天/index.html">
 <meta property="og:site_name" content="汪小良的个人博客">
-<meta property="og:description" content="汪正良">
+<meta property="og:description" content="JVM内存分析HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+       String s ;
+       s = &amp;quot;HelloHorld!&amp;quot;;
+       System.out.println(&amp;quot;s = &amp;quot; + s);">
+<meta property="og:image" content="http://omlw5kyym.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%9C%A8%E8%BF%90%E8%A1%8CHelloWorld%E6%97%B6%E5%81%9A%E8%BF%87%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F.png">
+<meta property="og:updated_time" content="2017-05-22T16:18:28.036Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="汪小良的个人博客">
-<meta name="twitter:description" content="汪正良">
+<meta name="twitter:title" content="java实训第一天">
+<meta name="twitter:description" content="JVM内存分析HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+       String s ;
+       s = &amp;quot;HelloHorld!&amp;quot;;
+       System.out.println(&amp;quot;s = &amp;quot; + s);">
+<meta name="twitter:image" content="http://omlw5kyym.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%9C%A8%E8%BF%90%E8%A1%8CHelloWorld%E6%97%B6%E5%81%9A%E8%BF%87%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F.png">
   
     <link rel="alternative" href="/atom.xml" title="汪小良的个人博客" type="application/atom+xml">
   
@@ -148,60 +166,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java实训第一天" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/10/春花/" class="archive-article-date">
-  	<time datetime="2017-03-10T15:23:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/10/春花/">花开</a>
+    <h1 class="article-title" itemprop="name">
+      java实训第一天
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/05/22/java实训第一天/" class="archive-article-date">
+  	<time datetime="2017-05-22T15:54:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM内存分析"><a href="#JVM内存分析" class="headerlink" title="JVM内存分析"></a>JVM内存分析</h1><p>HelloWorld.java</p>
+<pre><code>public class HelloWorld {
+    public static void main(String[] args) {
+       String s ;
+       s = &quot;HelloHorld!&quot;;
+       System.out.println(&quot;s = &quot; + s);
+      }
+}
+</code></pre><a id="more"></a>
+<p>&#160; &#160; &#160; &#160;首先先上图：<br><img src="http://omlw5kyym.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%9C%A8%E8%BF%90%E8%A1%8CHelloWorld%E6%97%B6%E5%81%9A%E8%BF%87%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F.png" alt=""></p>
+<p>图片解析：</p>
+<p>&#160;&#160;&#160;&#160;将源码进行编译,生成HelloWorld.class的字节码文件。当输入java  HelloWorld的命令运行java程序时，系统收到指令，就会创建java虚拟机线程，这个进程开始从classpath中找到HelloWorld.class文件，读取这个文件中的二进制数据，然后把HelloWorld类的类信息存放到方法区的类代码区中。这一过程称为类的加载过程。</p>
+<p>&#160;&#160;&#160;&#160;之后JVM主线程会去找main()这个主方法，开始执行方法里面的指令。main()方法中形参args是字符串数组类型的，因为String[]也是一个对象，所以在堆中开辟属于它的内存空间。可以通过键盘输入参数传递给args这个形参，保存在String[]的内存空间中。</p>
+<p>&#160;&#160;&#160;&#160;第一条指令String  s；由于这个变量是在main()方法里面，它是一个局部变量，所以jvm就为它栈中开辟了一块空间。s = ”HelloWorld”中， ”HelloWorld”是常对象，在方法区的数据区的常量数据区开辟内存空间，开辟好空间后将这块空间的地址付给了变量s，所以变量s存放的是地址，而不是”HelloWorld”这个字符串。</p>
+<p>&#160;&#160;&#160;&#160;System.out.println(“s= ” + s)中，因为System是java标准类库中的类，位于java,lang下，这个包是在java程序启动时候，JVM的classLoder就会直接将它加载进来的，所以不需要人工手动导入就可以直接使用，这个System类在堆中开辟了三块地址空间，分别属于System.in，System.out，System.error。System.out.println()复写了objecttoString()方法，得到返回来的s所指向地址的值，然后向控制台输出，最后换行。</p>
+<p>&#160;&#160;&#160;&#160;输出结果：s = Hello Horld!</p>
+<p>&#160;&#160;&#160;&#160;一直认为Java的HelloWorld程序很简单，但是认真分析起来确实是比较复杂，上面的内容是校内Java实训第一节课的重点，老师讲的很清楚、分析的很明白，以后上课一定要认真听讲，不要以为自己懂了就不去听老师讲的。查漏补缺真的很重要！</p>
+<p>end</p>
+<hr>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>还没有设置打赏账户<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">个人感想，杂记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://wangzhengliang.github.io/2017/05/22/java实训第一天/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/05/21/博客开更/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">博客开更</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="java实训第一天" ></div> 
+<!--PC版-->
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt1vGprz',
+conf: 'prod_073683b81b7263252877384c860e2406'
+});
+</script>
+  
+
+  
 
 
           </div>
@@ -228,9 +363,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
